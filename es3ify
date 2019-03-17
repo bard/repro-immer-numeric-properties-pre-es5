@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+const fsp = require('fs').promises
+const path = require('path')
+const yargs = require('yargs')
+const { transform } = require('es3ify')
+
+const es3ify = async (file) => {
+  const content = await fsp.readFile(file, 'utf-8')
+  const es3content = transform(content)
+  if (es3content !== content) {
+    await fsp.writeFile(file, es3content, 'utf8')
+  }
+}
+
+const run = () => {
+  const argv = yargs
+        .usage('Usage: $0 <file>')
+        .parse()
+
+  const [ filename ] = argv._
+  const filePath = path.resolve(filename)
+  es3ify(filePath)
+}
+
+run()
