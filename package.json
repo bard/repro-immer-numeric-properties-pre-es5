@@ -1,11 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "build": "rimraf dist && parcel build --no-minify -d dist index.html && ./es3ify dist/*.js",
-    "serve": "serve dist -l 1234",
-    "watch": "nodemon --watch index.js --exec 'yarn build && yarn serve'"
+    "build": "rimraf dist && parcel build --no-minify -d dist index.html minimal.html && for i in dist/*.js; do ./es3ify $i; done",
+    "serve": "serve dist -l 3011"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/debug": "^4.1.2",
     "core-js": "^3.0.0-beta.19",
